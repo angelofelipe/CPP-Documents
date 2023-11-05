@@ -18,6 +18,8 @@ Para cada caso de entrada deverão ser impressas as informações ordenadas pela
 Obs.: Deverá ser impressa uma linha em branco entre dois casos de teste.
 
 ## Exemplo de Entrada
+
+```
 9
 Maria Jose
 branco P
@@ -45,9 +47,11 @@ vermelho P
 Maria Jose
 branco P
 0
+```
 
 ## Exemplo de Saída
 
+```
 branco P Cezar Torres Mo
 branco P Maria Jose
 branco M JuJu Mentina
@@ -61,3 +65,4 @@ vermelho P Mangojata Mancuda
 branco P Maria Joao
 branco P Maria Jose
 vermelho P Marcio Guess
+```

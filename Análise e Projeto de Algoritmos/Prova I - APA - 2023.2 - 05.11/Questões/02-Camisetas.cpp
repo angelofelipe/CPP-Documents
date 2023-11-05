@@ -19,7 +19,47 @@ void visualizarVectorOfTuple( vector< tuple< string, char, string > > array) {
         desenveloparTuple( array[i], cor, tamanhoCamisa, nome );
         cout << cor << " " << tamanhoCamisa << " " << nome << endl;
     }
-    // cout << endl;
+    cout << endl;
+}
+
+void inicioFimTamanhoCamisa ( vector< tuple< string, char, string > > &array, char tamanhoCam, int &open, int &end ) {
+    // desenveloparTuple( array[0], cor, tamanhoCamisa, nome );
+    bool openTrue = true;
+    string charSelect(1, tamanhoCam), charAtual;
+    for ( int i = open; i <= end; i++ ) {
+        desenveloparTuple( array[i], cor, tamanhoCamisa, nome );
+        cout << tamanhoCam << " " << tamanhoCamisa << endl;
+        cout << open << " " << end << endl;
+        charAtual = "";
+        charAtual += tamanhoCamisa;
+        if ( charSelect == charAtual ) {
+            cout << "Valores Iguais" << endl;
+            if ( openTrue ) {
+                open = i;
+                openTrue = false;
+                cout << "open <- " << i << endl;
+            } else {
+                end = i;
+                cout << "end <- " << i << endl;
+            }
+        }
+    }
+    cout << "saiu do inicioFimTamanhoCamisa()" << endl;
+}
+
+void inicioFimCor ( vector< tuple< string, char, string > > &array, string corN, int &open, int &end ) {
+    bool openTrue = true;
+    for ( int i = 0; i < int(array.size()); i++ ) {
+        desenveloparTuple( array[i], cor, tamanhoCamisa, nome );
+        if ( corN == cor ) {
+            if ( openTrue ) {
+                open = i;
+                openTrue = false;
+            } else {
+                end = i;
+            }
+        }
+    }
 }
 
 // QUICKSORT
@@ -33,21 +73,43 @@ void swapTuple ( tuple< string, char, string > &isSwap, tuple< string, char, str
 int partition ( vector< tuple< string, char, string > > &array, int open, int end, int ordenarPor ) {
     desenveloparTuple( array[ end ], cor, tamanhoCamisa, nome );
     int isSwap = open - 1;
-    string pivot;
+    string pivotStr;
+    char pivotChar;
     switch( ordenarPor ) {
         cout << "entrou no Switch\n";
-        case 0:
-            pivot = cor;
+        case 0: // Ordenar pelo primeiro elemento da tupla
+            pivotStr = cor;
             for ( int i = open; i < end; i++ ) {
                 desenveloparTuple( array[i], cor1, tamanhoCamisa1, nome1 );
-                if ( cor1 <= pivot ) {
+                if ( cor1 <= pivotStr ) {
                     isSwap++;
                     swapTuple( array[isSwap], array[i] );
                 }
             }
             swapTuple( array[ isSwap + 1 ], array[ end ]);
             break;
-    
+        case 1: // Ordenar pelo segundo elemento da tupla
+            pivotChar = tamanhoCamisa;
+            for ( int i = open; i < end; i++ ) {
+                desenveloparTuple( array[i], cor1, tamanhoCamisa1, nome1 );
+                if ( tamanhoCamisa1 > pivotChar ) {
+                    isSwap++;
+                    swapTuple( array[isSwap], array[i] );
+                }
+            }
+            swapTuple( array[ isSwap + 1 ], array[ end ]);
+            break;
+        case 2: // Ordenar pelo terceiro elemento da tupla
+            pivotStr = nome;
+                for ( int i = open; i < end; i++ ) {
+                    desenveloparTuple( array[i], cor1, tamanhoCamisa1, nome1 );
+                    if ( nome1 <= pivotStr ) {
+                        isSwap++;
+                        swapTuple( array[isSwap], array[i] );
+                    }
+                }
+                swapTuple( array[ isSwap + 1 ], array[ end ]);
+            break;
         default:
             return -1;
             break;
@@ -80,9 +142,27 @@ vector<string> pegarLinha (int ignore = 0) {    // Só passa entrada > 0 , se fo
     return vetorLine;    
 }
 
+void ordenarNome( vector< tuple< string, char, string > > &array, int open, int end, int openC, int endC ) {
+    cout << open << " " << end << endl;
+    openC = open; endC = end;
+    inicioFimTamanhoCamisa( array, 'P', openC, endC );       // achar faixa de valores de P em branco
+    cout << openC << " " << endC << endl;
+    quickSort( array, openC, endC, 2 );                     // ordenar nomes nas subfaixas de tamanhos
+
+    visualizarVectorOfTuple( array );
+
+    // openC = open; endC = end;
+    // inicioFimTamanhoCamisa( array, 'M', openC, endC );       // achar faixa de valores de P em branco
+    // quickSort( array, openC, endC, 2 );                      // ordenar nomes nas subfaixas de tamanhos
+
+    // openC = open; endC = end;
+    // inicioFimTamanhoCamisa( array, 'G', openC, endC );       // achar faixa de valores de P em branco
+    // quickSort( array, openC, endC, 2 );                      // ordenar nomes nas subfaixas de tamanhos
+}
+
 int main() {
 
-    int condicao = 0;
+    int condicao = 0, open = 0, end = 0, openC = 0, endC = 0;
     string nomeInput = "";
     vector<string> linha;
     vector< tuple< string, char, string > > arrayTupla; // make_tuple(cor, tamanhoCamisa, nome);
@@ -97,17 +177,38 @@ int main() {
             tamanhoCamisa = linha[1][0];
             arrayTupla.emplace_back( make_tuple( cor, tamanhoCamisa, nomeInput ) );
         }
-        cout << endl ;
+        quickSort( arrayTupla, 0, int(arrayTupla.size()) - 1, 0 );  // ordenar pelo cor
+        cout << endl;
         visualizarVectorOfTuple( arrayTupla );
-        quickSort( arrayTupla, 0, int(arrayTupla.size()) - 1, 0 );
-        cout << endl ;
+
+        inicioFimCor( arrayTupla, "branco", open, end );            // achar faixa de valores brancos
+        quickSort( arrayTupla, open, end, 1 );                      // ordenar depois da cor na faixa branca
+        cout << open << " " << end << endl;
+        // ordenarNome( arrayTupla, open, end, openC, endC );
+
+        // openC = open; endC = end;
+        // inicioFimTamanhoCamisa( arrayTupla, 'P', openC, endC );
+        // cout << openC << " " << endC << endl;
+
+        // quickSort( arrayTupla, openC, endC, 2 );
+
+        inicioFimCor( arrayTupla, "vermelho", open, end );          // acahar faixa de valores vermelhos
+        quickSort( arrayTupla, open, end, 1 );                      // ordenar depois da cor na faixa vermelhos
+        // visualizarVectorOfTuple( arrayTupla );
+        // ordenarNome( arrayTupla, open, end, openC, endC );
+
+        // openC = open; endC = end;
+        // inicioFimTamanhoCamisa( arrayTupla, 'P', openC, endC );
+        // cout << openC << " " << endC << endl;
+
+
+        // quickSort( arrayTupla, openC, endC, 2 );
+
+        cout << endl;
         visualizarVectorOfTuple( arrayTupla );
         cin >> condicao;
 
     }
-    cout << endl ;
-    swapTuple( arrayTupla[0], arrayTupla[1]);
-    visualizarVectorOfTuple( arrayTupla );
     
 
     // vector<string> linha = pegarLinha();
