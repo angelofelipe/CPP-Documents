@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "tiposArquivo.h"
 
 int main () {
     FILE *f;
 
-    if (!(f = fopen("dados", "r+b"))) {
+    if (!(f = fopen("dados", "rb+"))) {
         printf ("Erro na abertura do arquivo \"dados\" - Programa abortado\n");
         exit(-1);
     }

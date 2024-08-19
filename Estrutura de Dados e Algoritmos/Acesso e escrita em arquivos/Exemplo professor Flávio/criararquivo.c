@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "tiposArquivo.h"
 
@@ -8,7 +9,7 @@ int main () {
     printf ("Criando arquivo \"dados\" ...\n");
     // w+ -> Abre o arquivo para leitura e escrita e apaga o conteúdo
     // r+ -> Abre o arquivo para leitura e escrita mas não apaga o conteúdo
-    if ((f = fopen("dados", "w+")))
+    if ((f = fopen("dados", "wb+")))
         printf ("Arquivo \"dados\" criado com sucesso.\n");
     else {
         printf ("Erro na criação do arquivo \"dados\".");
