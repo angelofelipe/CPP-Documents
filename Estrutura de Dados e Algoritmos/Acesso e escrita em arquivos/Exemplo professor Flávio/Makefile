@@ -1,5 +1,5 @@
 # Nome dos executáveis
-EXECUTABLES = criararquivo inseredados inserirfinal lerarquivo
+EXECUTABLES = criararquivo inseredados inserirfinal lerarquivo truncararquivo
 
 # Compilador e flags
 CC = gcc
@@ -19,6 +19,9 @@ inserirfinal: inserirfinal.c tiposArquivo.h
 
 lerarquivo: lerarquivo.c tiposArquivo.h
 	$(CC) $(CFLAGS) -o lerarquivo.bin lerarquivo.c
+
+truncararquivo: truncararquivo.c tiposArquivo.h
+	$(CC) $(CFLAGS) -o truncararquivo.bin truncararquivo.c
 
 # Limpar os executáveis gerados
 clean:
