@@ -9,7 +9,7 @@ int main() {
     fstream file;
 
     // Abre o arquivo no modo append para leitura e escrita
-    file.open("dados", ios::binary | ios::in | ios::out | ios::app);
+    file.open("dados.db", ios::binary | ios::in | ios::out | ios::app);
     if (!file.is_open()) {
         cerr << "Erro na abertura do arquivo \"dados\" - Programa abortado" << endl;
         return -1;

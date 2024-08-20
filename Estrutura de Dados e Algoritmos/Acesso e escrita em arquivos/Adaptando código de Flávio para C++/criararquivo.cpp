@@ -10,7 +10,7 @@ int main() {
     cout << "Criando arquivo \"dados\" ..." << endl;
     
     // Abre o arquivo para leitura e escrita, apaga o conteúdo se o arquivo já existir
-    file.open("dados", ios::binary | ios::in | ios::out | ios::trunc);
+    file.open("dados.db", ios::binary | ios::in | ios::out | ios::trunc);
     
     if (file.is_open()) {
         cout << "Arquivo \"dados\" criado com sucesso." << endl;

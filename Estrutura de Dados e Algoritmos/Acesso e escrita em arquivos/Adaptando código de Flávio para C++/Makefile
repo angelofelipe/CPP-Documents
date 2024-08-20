@@ -26,7 +26,7 @@ truncararquivo: truncararquivo.cpp tiposArquivo.h
 # Limpar os executáveis gerados
 clean:
 	rm -f $(addsuffix .bin, $(EXECUTABLES))
-	rm dados
+	rm dados.db
 
 # Fazer o 'clean' automaticamente antes de recompilar
 rebuild: clean all

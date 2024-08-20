@@ -5,7 +5,7 @@
 #include "tiposArquivo.h"
 
 int main() {
-    int f = open("dados", O_RDWR);
+    int f = open("dados.db", O_RDWR);
     if (f == -1) {
         perror("Erro ao abrir o arquivo");
         return -1;

@@ -11,7 +11,7 @@ int main() {
     int num_records;
     int bytes_per_register;
 
-    file.open("dados", ios::in | ios::out | ios::binary);
+    file.open("dados.db", ios::in | ios::out | ios::binary);
     if (!file.is_open()) {
         cerr << "Erro na abertura do arquivo \"dados\" - Programa abortado" << endl;
         return -1;
