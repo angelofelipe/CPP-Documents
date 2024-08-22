@@ -11,7 +11,7 @@
 >
 > wb, wb+                     :=      ```ios::trunc```
 >
-> ab, ab+                     :=      ```ios::app```
+> ab, ab+                     :=      ```ios::app``` - ```ios::ate```
 
 ##### Ex:
 ``` c++
@@ -22,7 +22,6 @@ file.open("dados", ios::binary | ios::in | ios::out | ios::trunc);  // ios:app
 * SEEK_SET → ```ios::beg```
 * SEEK_CUR → ```ios::cur```
 * SEEK_END → ```ios::end```
-
 
 ---
 
